@@ -1,7 +1,13 @@
 #
-# $Id: Changes,v 2.6 2006/07/02 07:56:06 dankogai Exp dankogai $
+# $Id: Changes,v 2.7 2008/05/10 18:15:19 dankogai Exp dankogai $
 #
-$Revision: 2.6 $ $Date: 2006/07/02 07:56:06 $
+$Revision: 2.7 $ $Date: 2008/05/10 18:15:19 $
+! Jcode.pm
+  fixed: mime_encode doesn't work properly
+  patch appled but the default value of $lf is reverted.
+  http://rt.cpan.org/Ticket/Display.html?id=29049
+
+2.06 2006/07/02 07:56:06
 ! Jcode.pm t/regex.t t/tr.t
   Security fix by Hanabusa-san that prevents options from being eval'ed.
   <20060702140740.9DDB.DOT-DANKOGAI@ziro.org>

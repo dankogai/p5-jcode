@@ -1,5 +1,5 @@
 #
-# $Id: Jcode.pm,v 2.6 2006/07/02 07:56:06 dankogai Exp dankogai $
+# $Id: Jcode.pm,v 2.7 2008/05/10 18:15:19 dankogai Exp dankogai $
 #
 
 package Jcode;
@@ -8,8 +8,8 @@ use Carp;
 use strict;
 use vars qw($RCSID $VERSION $DEBUG);
 
-$RCSID = q$Id: Jcode.pm,v 2.6 2006/07/02 07:56:06 dankogai Exp dankogai $;
-$VERSION = do { my @r = (q$Revision: 2.6 $ =~ /\d+/g); sprintf "%d."."%02d" x $#r, @r };
+$RCSID = q$Id: Jcode.pm,v 2.7 2008/05/10 18:15:19 dankogai Exp dankogai $;
+$VERSION = do { my @r = (q$Revision: 2.7 $ =~ /\d+/g); sprintf "%d."."%02d" x $#r, @r };
 $DEBUG = 0;
 
 # we no longer use Exporter
@@ -426,14 +426,14 @@ sub mime_encode{
 
 sub _add_encoded_word {
     require MIME::Base64;
-    my($str, $line, $bpl) = @_;
+    my($str, $line, $lf, $bpl) = @_;
     my $result = '';
     while (length($str)) {
 	my $target = $str;
 	$str = '';
 	if (length($line) + 22 +
 	    ($target =~ /^(?:$RE{EUC_0212}|$RE{EUC_C})/o) * 8 > $bpl) {
-	    $line =~ s/[ \t\n\r]*$/\n/;
+	    $line =~ s/[ \t\n\r]*$/$lf/eo;
 	    $result .= $line;
 	    $line = ' ';
 	}
@@ -483,7 +483,7 @@ sub _mime_unstructured_header {
 		$header .= $word;
 	    }
 	} else {
-	    $header = _add_encoded_word($word, $header, $bpl);
+	    $header = _add_encoded_word($word, $header, $lf, $bpl);
 	}
 	$header =~ /(?:.*\n)*(.*)/;
 	if (length($1) == $bpl) {
