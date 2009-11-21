@@ -55,7 +55,8 @@ myok(jcode( $s, 'euc' )->tr( $from, 'A-Z/' )->euc,  'ABC/DEF', "tr");
 myok(jcode( $s, 'euc' )->tr( $from, 'A-Z\/' )->euc, 'ABC\DEF', "tr");
 
 local($SIG{__WARN__}) = sub{}; # suppress eval error
-our $T_FLAG = 0;
+use vars qw($T_FLAG);
+$T_FLAG = 0;
 my $p = __PACKAGE__;
 my $j = Jcode->new('a');
 $j->tr("//;\$$p\:\:T_FLAG+=1;", "", "");
